@@ -10,13 +10,25 @@
     
     <style>
         :root {
+            /* Light theme variables */
             --bg-color: #f5f7fa;
             --card-bg-color: #ffffff;
             --text-color: #1a202c;
             --text-light-color: #2a3549;
-            --link-color: #2b6cb0;
-            --link-hover-bg: #e2e8f0;
+            --link-hover-bg: #f2f4f7;
             --link-border: #cbd5e0;
+        }
+
+        /* Dark theme variables */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #1a202c;
+                --card-bg-color: #2d3748;
+                --text-color: #e2e8f0;
+                --text-light-color: #a0aec0;
+                --link-hover-bg: #333f54;
+                --link-border: #4a5568;
+            }
         }
 
         body {
@@ -30,6 +42,7 @@
             padding: 20px;
             color: var(--text-color);
             line-height: 1.5;
+            transition: background-color 0.3s ease;
         }
 
         .container {
@@ -44,6 +57,7 @@
             border-radius: 16px;
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
             margin-bottom: 20px;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         .profile-picture {
@@ -53,6 +67,7 @@
             object-fit: cover;
             border: 3px solid var(--link-border);
             margin-bottom: 15px;
+            transition: border-color 0.3s ease;
         }
 
         h1 {
@@ -66,6 +81,7 @@
             font-size: 16px;
             font-weight: 400;
             margin: 0 0 5px;
+            transition: color 0.3s ease;
         }
 
         .links-container {
@@ -85,26 +101,33 @@
             color: var(--text-color);
             font-size: 16px;
             font-weight: 600;
-            transition: all 0.2s ease-in-out;
+            transition: all 0.1s ease-in-out;
             box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
         }
 
         .link-button:hover {
             background-color: var(--link-hover-bg);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
 
         .icon {
             margin-right: 12px;
             width: 22px;
             height: 22px;
+            filter: var(--icon-filter, none);
+        }
+
+        /* Dark theme icon filter */
+        @media (prefers-color-scheme: dark) {
+            .icon {
+                filter: invert(100%) brightness(120%) saturate(150%);
+            }
         }
 
         .footer {
             margin-top: 20px;
             font-size: 14px;
             color: #718096;
+            transition: color 0.3s ease;
         }
 
         /* Адаптивні стилі для менших екранів */
@@ -130,6 +153,95 @@
                 height: 20px;
             }
         }
+
+        /* СТИЛІ ДЛЯ ДРУКУ */
+        @media print {
+            body {
+                background-color: #ffffff !important;
+                color: #000000 !important;
+                min-height: auto;
+                padding: 0;
+            }
+
+            .container {
+                max-width: none;
+                text-align: left;
+                padding: 20px;
+            }
+            
+            .profile-section {
+                padding: 0;
+                margin-bottom: 20px;
+                background: none;
+                box-shadow: none;
+                text-align: left;
+                display: flex; /* Робимо гнучким контейнером */
+                align-items: center; /* Вирівнюємо елементи по центру */
+                gap: 20px; /* Відступ між елементами */
+            }
+            
+            .profile-picture {
+                display: block; /* Зображення буде відображатися */
+                width: 80px;
+                height: 80px;
+                border: 1px solid #ddd;
+                border-radius: 50%; /* Робимо круглим */
+                flex-shrink: 0; /* Запобігаємо стисканню */
+            }
+            
+            .profile-info {
+                display: block;
+            }
+
+            h1 {
+                font-size: 24px;
+                font-weight: 600;
+                color: #000000 !important;
+                margin: 0;
+            }
+            
+            h2 {
+                font-size: 16px;
+                font-weight: 400;
+                color: #000000 !important;
+                margin-top: 5px;
+            }
+
+            .footer {
+                display: none;
+            }
+
+            .links-container {
+                display: block;
+                gap: 0;
+                margin-top: 20px;
+            }
+
+            .link-button {
+                display: block;
+                padding: 0;
+                background-color: transparent !important;
+                border: none !important;
+                box-shadow: none;
+                color: #0000ff !important;
+                font-size: 18px;
+                font-weight: 400;
+                margin-bottom: 5px;
+                text-align: left;
+                text-decoration: underline;
+            }
+            
+            .link-button .icon {
+                display: none;
+            }
+
+            .link-button::after {
+                content: " (" attr(href) ") ";
+                font-size: 14px;
+                color: #555555;
+                text-decoration: none;
+            }
+        }
     </style>
 </head>
 <body>
@@ -137,8 +249,10 @@
     <div class="container">
         <div class="profile-section">
             <img class="profile-picture" src="avatar.png" alt="Фото профілю">
-            <h1>FromKaniv</h1>
-            <h2>Бандурист із Канева</h2>
+            <div>
+                <h1>FromKaniv</h1>
+                <h2>Бандурист із Канева</h2>
+            </div>
         </div>
         
         <div class="links-container">
