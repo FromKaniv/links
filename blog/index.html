@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тарас Лаврентьєв — блоґ</title>
+    <link rel="icon" href="/favicon_light.svg" type="image/svg+xml">
+    <link rel="icon" href="/favicon_dark.svg" type="image/svg+xml" media="(prefers-color-scheme: dark)">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <h1 class="blog-title">Блоґ Тараса Лаврентьєва</h1>
+        <h2 class="blog-title"><a href="/">Соцмережі</a></h2>
+    </header>
+
+    <main>
+        <div id="main-page" class="content-view active">
+            <nav id="articles-list"></nav>
+        </div>
+        
+        <div id="article-page" class="content-view">
+            <a href="#" class="back-button">← Назад</a>
+            <h1 class="article-title"></h1>
+            <article id="article-content"></article>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

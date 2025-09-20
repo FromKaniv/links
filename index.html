@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FromKaniv</title>
+    <title>Тарас Лаврентьєв — соцмережі</title>
+    <link rel="icon" href="/favicon_light.svg" type="image/svg+xml">
+    <link rel="icon" href="/favicon_dark.svg" type="image/svg+xml" media="(prefers-color-scheme: dark)">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
@@ -56,6 +58,7 @@
             background-color: var(--card-bg-color);
             border-radius: 16px;
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--link-border);
             margin-bottom: 20px;
             transition: background-color 0.3s ease, box-shadow 0.3s ease;
         }
@@ -65,7 +68,7 @@
             height: 100px;
             border-radius: 25%;
             object-fit: cover;
-            border: 3px solid var(--link-border);
+            border: 1px solid var(--link-border);
             margin-bottom: 15px;
             transition: border-color 0.3s ease;
         }
@@ -73,15 +76,26 @@
         h1 {
             font-size: 28px;
             font-weight: 600;
-            margin: 0 0 5px;
+            margin: 0;
+            text-align: center;
         }
         
         h2 {
             color: var(--text-light-color);
             font-size: 16px;
             font-weight: 400;
-            margin: 0 0 5px;
+            margin: 10px 0 0 0;
             transition: color 0.3s ease;
+            text-align: center;
+        }
+        
+        h3 {
+            color: var(--text-color);
+            font-size: 14px;
+            font-weight: 200;
+            margin: 0;
+            transition: color 0.3s ease;
+            text-align: center;
         }
 
         .links-container {
@@ -178,6 +192,7 @@
                 display: flex; /* Робимо гнучким контейнером */
                 align-items: center; /* Вирівнюємо елементи по центру */
                 gap: 20px; /* Відступ між елементами */
+                border: none;
             }
             
             .profile-picture {
@@ -198,6 +213,7 @@
                 font-weight: 600;
                 color: #000000 !important;
                 margin: 0;
+                text-align: left;
             }
             
             h2 {
@@ -205,6 +221,15 @@
                 font-weight: 400;
                 color: #000000 !important;
                 margin-top: 5px;
+                text-align: left;
+            }
+            
+            h3 {
+                font-size: 12px;
+                font-weight: 200;
+                color: #000000 !important;
+                margin-top: 0;
+                text-align: left;
             }
 
             .footer {
@@ -250,12 +275,17 @@
         <div class="profile-section">
             <img class="profile-picture" src="avatar.png" alt="Фото профілю">
             <div>
-                <h1>FromKaniv</h1>
+                <h1>Тарас Лаврентьєв</h1>
+                <h3>@FromKaniv</h3>
                 <h2>Бандурист із Канева</h2>
             </div>
         </div>
         
         <div class="links-container">
+            <a href="/blog/index.html" class="link-button">
+                <img src="icons/blog.svg" alt="Блоґ" class="icon">
+                Блоґ
+            </a>
             <a href="https://www.youtube.com/@fromkaniv" class="link-button" target="_blank">
                 <img src="icons/youtube.svg" alt="YouTube" class="icon">
                 YouTube
@@ -287,7 +317,8 @@
         </div>
 
         <p class="footer">
-            Слава Україні! 💛💙
+            Слава Україні! 💛💙<br>
+            Піктограма «Блоґ» від HugeIcons
         </p>
     </div>
 
