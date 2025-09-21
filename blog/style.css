@@ -6,6 +6,14 @@
     --text-light-color: #2a3549;
     --link-hover-bg: #f2f4f7;
     --link-border: #cbd5e0;
+    --tag-bg-color: #e2e8f0;
+    --tag-text-color: #4a5568;
+    --tag-active-bg: #4c51bf;
+    --tag-active-text: #ffffff;
+    --input-bg-color: #ffffff;
+    --input-border-color: #cbd5e0;
+    --input-focus-color: #4c51bf;
+    --search-icon-color-light: #000000; /* Чорна іконка для світлої теми */
 }
 
 /* Dark theme variables */
@@ -17,6 +25,14 @@
         --text-light-color: #a0aec0;
         --link-hover-bg: #333f54;
         --link-border: #4a5568;
+        --tag-bg-color: #4a5568;
+        --tag-text-color: #e2e8f0;
+        --tag-active-bg: #6366f1;
+        --tag-active-text: #e2e8f0;
+        --input-bg-color: #2d3748;
+        --input-border-color: #4a5568;
+        --input-focus-color: #6366f1;
+        --search-icon-color-dark: #ffffff; /* Біла іконка для темної теми */
     }
 }
 
@@ -39,7 +55,7 @@ h1.blog-title {
     color: var(--text-color);
     font-size: 28px;
     font-weight: 600;
-    margin: 10px;
+    margin: 0;
 }
 
 h2.blog-title {
@@ -54,13 +70,15 @@ h2 a {
 }
 
 main {
-    max-width: 800px;
+    max-width: 900px;
     margin: 20px auto;
     padding: 0 20px;
 }
 
 hr {
-    color: var(--link-border);
+    border: none;
+    height: 1px;
+    background-color: var(--text-light-color);
     margin: 0 25px 25px 0;
 }
 
@@ -92,6 +110,90 @@ hr {
     color: var(--text-color);
 }
 
+/* Стилі для поля пошуку */
+#search-container {
+margin-bottom: 20px;
+}
+
+.search-icon-wrapper {
+    position: relative;
+}
+
+#search-input {
+width: 100%;
+padding: 12px 16px 12px 40px; /* Додано відступ для іконки */
+font-family: 'Inter', sans-serif;
+font-size: 16px;
+border: 1px solid var(--input-border-color);
+border-radius: 12px;
+background-color: var(--input-bg-color);
+color: var(--text-color);
+transition: border-color 0.2s ease;
+box-sizing: border-box;
+}
+
+#search-input::placeholder {
+color: var(--text-light-color);
+}
+
+#search-input:focus {
+outline: none;
+border-color: var(--input-focus-color);
+}
+
+/* Стилі для іконки */
+.search-icon-wrapper::before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    background-image: url('/icons/search.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    filter: invert(0); /* За замовчуванням іконка чорна */
+    transition: filter 0.3s ease;
+}
+
+@media (prefers-color-scheme: dark) {
+    .search-icon-wrapper::before {
+        filter: invert(1); /* Для темної теми інвертуємо, щоб іконка стала білою */
+    }
+}
+
+/* Стилі для контейнера тегів */
+#tags-container {
+display: flex;
+flex-wrap: wrap;
+gap: 8px;
+margin-bottom: 20px;
+}
+
+.tag-button {
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: 1px solid var(--link-border);
+    background-color: var(--tag-bg-color);
+    color: var(--tag-text-color);
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 600;
+}
+
+.tag-button:hover {
+    background-color: var(--link-hover-bg);
+}
+
+.tag-button.active {
+    background-color: var(--tag-active-bg);
+    color: var(--tag-active-text);
+    border-color: var(--tag-active-bg);
+}
+
 nav#articles-list ul {
     list-style: none;
     padding: 0;
@@ -102,8 +204,7 @@ nav#articles-list ul {
 
 nav#articles-list li a {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
     padding: 18px;
     background-color: var(--card-bg-color);
     border: 1px solid var(--link-border);
@@ -120,17 +221,39 @@ nav#articles-list li a:hover {
     background-color: var(--link-hover-bg);
 }
 
+.no-articles {
+    text-align: center;
+    color: var(--text-light-color);
+    padding-top: 25px;
+}
+
 .article-date-sidebar {
     font-size: 0.9em;
     color: var(--text-light-color);
     font-weight: 400;
+    margin-bottom: 8px;
 }
 
-article#article-content h1 {
-    font-size: 28px;
+.article-tags-sidebar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+}
+
+.article-tags-sidebar span {
+    background-color: var(--tag-bg-color);
+    color: var(--tag-text-color);
+    font-size: 12px;
     font-weight: 600;
-    color: var(--text-color);
-    margin: 0 0 10px;
+    padding: 4px 10px;
+    border-radius: 12px;
+}
+
+/* Стилі для сторінки статті */
+.article-title {
+    margin-top: 0;
+    margin-bottom: 4px;
 }
 
 .article-date-main {
@@ -140,6 +263,22 @@ article#article-content h1 {
     margin: 0 0 20px;
     padding-bottom: 10px;
     border-bottom: 1px solid var(--link-border);
+}
+
+.tags-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.tag {
+    background-color: var(--tag-bg-color);
+    color: var(--tag-text-color);
+    font-size: 14px;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 16px;
 }
 
 img {

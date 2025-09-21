@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Тарас Лаврентьєв — блоґ</title>
+    <title>Блоґ Тараса Лаврентьєва</title>
     <link rel="icon" href="/favicon_light.svg" type="image/svg+xml">
     <link rel="icon" href="/favicon_dark.svg" type="image/svg+xml" media="(prefers-color-scheme: dark)">
     <link rel="stylesheet" href="style.css">
@@ -20,12 +20,19 @@
 
     <main>
         <div id="main-page" class="content-view active">
+            <div id="search-container">
+                <div class="search-icon-wrapper">
+                    <input type="text" id="search-input" placeholder="Пошук елементів...">
+                </div>
+            </div>
+            <div id="tags-container"></div>
             <nav id="articles-list"></nav>
         </div>
         
         <div id="article-page" class="content-view">
             <a href="#" class="back-button">← Назад</a>
             <h1 class="article-title"></h1>
+            <div id="article-tags" class="tags-list"></div>
             <article id="article-content"></article>
         </div>
     </main>
