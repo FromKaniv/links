@@ -1,6 +1,7 @@
 :root {
     /* Light theme variables */
     --bg-color: #f5f7fa;
+    --hr-color: #ced7e1;
     --card-bg-color: #ffffff;
     --text-color: #1a202c;
     --text-light-color: #2a3549;
@@ -20,6 +21,7 @@
 @media (prefers-color-scheme: dark) {
     :root {
         --bg-color: #1a202c;
+        --hr-color: #444f62;
         --card-bg-color: #2d3748;
         --text-color: #e2e8f0;
         --text-light-color: #a0aec0;
@@ -47,39 +49,73 @@ body {
 }
 
 header {
-    text-align: center;
-    padding: 1rem 0;
+    display: none;
 }
 
-h1.blog-title {
-    color: var(--text-color);
-    font-size: 28px;
+/* Додані стилі для верхньої навігаційної панелі */
+.top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    background-color: var(--card-bg-color);
+    border-radius: 16px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-avatar {
+    width: 36px;
+    height: 36px;
+    margin-right: 4px;
+    border-radius: 12px; /* Зменшене заокруглення */
+    object-fit: cover;
+}
+
+.nav-name {
+    font-size: 16px;
     font-weight: 600;
-    margin: 0;
+    color: var(--text-color);
 }
 
-h2.blog-title {
-    color: var(--text-light-color);
-    font-size: 14px;
-    font-weight: 400;
-    margin: 0;
+.nav-center {
+    display: flex;
+    gap: 20px;
 }
 
-h2 a {
+.nav-link {
     color: var(--text-light-color);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+    transition: color 0.2s ease;
+}
+
+.nav-link:hover {
+    color: var(--text-color);
+}
+
+.nav-link.active {
+    color: var(--text-color);
+    border-bottom: 2px solid var(--tag-active-bg);
+    padding-bottom: 2px;
 }
 
 main {
-    max-width: 900px;
-    margin: 20px auto;
+    max-width: 1200px;
+    margin: 0 auto;
     padding: 0 20px;
 }
 
 hr {
     border: none;
-    height: 1px;
-    background-color: var(--text-light-color);
-    margin: 0 25px 25px 0;
+    border-top: 1px solid var(--hr-color);
 }
 
 /* Нові стилі для керування видимістю */
@@ -298,6 +334,11 @@ img {
     
     main {
         padding: 0; /* Прибираємо всі відступи */
+    }
+    
+    .top-nav {
+        border-radius: 0;
+        box-shadow: none;
     }
     
     .content-view,
