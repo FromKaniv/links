@@ -10,7 +10,7 @@ const searchInput = document.getElementById('search-input');
 
 const articles = [
     { filename: 'Запуск власної вебсторінки.md', date: '21.09.25', tags: ['Технології'] },
-{ filename: 'Моя мовна позиція.md', date: '22.09.25', tags: ['Філологія'] },
+{ filename: 'День музики в Канівській ДШМ.md', date: '01.10.25', tags: ['Концерт'] },
 ];
 
 // Дата у формат для сортування
@@ -26,6 +26,12 @@ let activeTag = null;
 
 // Повернення на головну
 function showMainPage() {
+    // 1. ГОЛОВНЕ ВИПРАВЛЕННЯ: Зупинити відтворення embed-відео
+    // Очищаємо вміст статті. Це видалить iframe з DOM, зупиняючи відтворення.
+    articleContent.innerHTML = '';
+    articleTitle.textContent = '';
+    articleTagsContainer.innerHTML = '';
+    
     mainPage.classList.add('active');
     articlePage.classList.remove('active');
     history.pushState(null, '', window.location.pathname.replace(window.location.hash, ''));
@@ -36,11 +42,15 @@ async function showArticlePage(filename) {
     const article = articles.find(art => art.filename === filename);
     if (!article) return;
     
+    // Очищаємо вміст перед завантаженням, щоб уникнути конфліктів
+    articleContent.innerHTML = ''; 
+    
     try {
         const response = await fetch(`articles/${article.filename}`);
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const markdown = await response.text();
-        const htmlContent = marked.parse(markdown);
+        // Використовуємо .parse() замість .marked() для нової версії marked.js
+        const htmlContent = marked.parse(markdown); 
         
         // Створення ідентифікатора з назви файлу для URL
         const articleId = encodeURIComponent(filename.replace('.md', '').replace(/\s/g, '-'));
@@ -53,6 +63,11 @@ async function showArticlePage(filename) {
         <p class="article-date-main">Дата публікації: ${article.date}</p>
         ${htmlContent}
         `;
+        
+        // Запускаємо обробку емодзі після вставлення контенту
+        if (typeof twemoji !== 'undefined') {
+            twemoji.parse(articleContent);
+        }
         
         articleTagsContainer.innerHTML = article.tags
         .map(tag => `<span class="tag">${tag}</span>`)

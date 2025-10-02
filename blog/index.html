@@ -13,12 +13,18 @@
 </head>
 <body>
 
-    <header>
-        <h1 class="blog-title">Блоґ Тараса Лаврентьєва</h1>
-        <h2 class="blog-title"><a href="/">Соцмережі</a></h2>
-    </header>
-
     <main>
+        <header class="top-nav">
+            <div class="nav-left">
+                <img src="/avatar.png" alt="Аватар користувача" class="nav-avatar">
+                <span class="nav-name">@FromKaniv</span>
+            </div>
+            <div class="nav-center">
+                <a href="/" class="nav-link">Соцмережі</a>
+                <a href="#" class="nav-link active">Блоґ</a>
+            </div>
+        </header>
+
         <div id="main-page" class="content-view active">
             <div id="search-container">
                 <div class="search-icon-wrapper">
@@ -28,7 +34,7 @@
             <div id="tags-container"></div>
             <nav id="articles-list"></nav>
         </div>
-        
+         
         <div id="article-page" class="content-view">
             <a href="#" class="back-button">← Назад</a>
             <h1 class="article-title"></h1>
