@@ -8,26 +8,16 @@ const tagsContainer = document.getElementById('tags-container');
 const articleTagsContainer = document.getElementById('article-tags');
 const searchInput = document.getElementById('search-input');
 
-const articles = [
-    { filename: 'Запуск власної вебсторінки.md', date: '21.09.25', tags: ['Технології'] },
-{ filename: 'День музики в Канівській ДШМ.md', date: '01.10.25', tags: ['Концерт'] },
-];
+let articles = [];
+let activeTag = null;
+let currentActiveTagButton = null;
 
-// Дата у формат для сортування
 const parseDate = (dateStr) => {
     const [day, month, year] = dateStr.split('.');
     return new Date(`20${year}-${month}-${day}`);
 };
 
-// Сортування статей (новіші зверху)
-articles.sort((a, b) => parseDate(b.date) - parseDate(a.date));
-
-let activeTag = null;
-
-// Повернення на головну
 function showMainPage() {
-    // 1. ГОЛОВНЕ ВИПРАВЛЕННЯ: Зупинити відтворення embed-відео
-    // Очищаємо вміст статті. Це видалить iframe з DOM, зупиняючи відтворення.
     articleContent.innerHTML = '';
     articleTitle.textContent = '';
     articleTagsContainer.innerHTML = '';
@@ -37,25 +27,20 @@ function showMainPage() {
     history.pushState(null, '', window.location.pathname.replace(window.location.hash, ''));
 }
 
-// Відкриття статті
 async function showArticlePage(filename) {
     const article = articles.find(art => art.filename === filename);
     if (!article) return;
     
-    // Очищаємо вміст перед завантаженням, щоб уникнути конфліктів
-    articleContent.innerHTML = ''; 
+    articleContent.innerHTML = '';
     
     try {
         const response = await fetch(`articles/${article.filename}`);
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const markdown = await response.text();
-        // Використовуємо .parse() замість .marked() для нової версії marked.js
-        const htmlContent = marked.parse(markdown); 
+        const htmlContent = marked.parse(markdown);
         
-        // Створення ідентифікатора з назви файлу для URL
         const articleId = encodeURIComponent(filename.replace('.md', '').replace(/\s/g, '-'));
         
-        // Зміна URL в адресному рядку без перезавантаження
         history.pushState(null, '', `#${articleId}`);
         
         articleTitle.textContent = article.filename.replace('.md', '');
@@ -64,7 +49,6 @@ async function showArticlePage(filename) {
         ${htmlContent}
         `;
         
-        // Запускаємо обробку емодзі після вставлення контенту
         if (typeof twemoji !== 'undefined') {
             twemoji.parse(articleContent);
         }
@@ -81,7 +65,6 @@ async function showArticlePage(filename) {
     }
 }
 
-// Список статей
 function createArticlesList() {
     const searchTerm = searchInput.value.toLowerCase();
     
@@ -104,16 +87,8 @@ function createArticlesList() {
         </li>`).join('')}
         </ul>`
         : `<p class="no-articles">Немає елементів</p>`;
-        
-        document.querySelectorAll('#articles-list a').forEach(a => {
-            a.addEventListener('click', e => {
-                e.preventDefault();
-                showArticlePage(a.dataset.file);
-            });
-        });
 }
 
-// Фільтр тегів
 function createTagsFilter() {
     const allTags = [...new Set(articles.flatMap(a => a.tags))].sort();
     
@@ -124,20 +99,12 @@ function createTagsFilter() {
         `).join('')}
         `;
         
-        document.querySelectorAll('.tag-button').forEach(btn => {
-            btn.addEventListener('click', () => {
-                activeTag = btn.dataset.tag || null;
-                createTagsFilter();
-                createArticlesList();
-            });
-        });
+        currentActiveTagButton = tagsContainer.querySelector('.tag-button.active');
 }
 
-// Обробка URL з хешем при завантаженні
 function handleInitialLoad() {
     const hash = window.location.hash;
     if (hash) {
-        // Декодуємо URL, замінюємо дефіси на пробіли, щоб знайти файл
         const filename = decodeURIComponent(hash.substring(1)).replace(/-/g, ' ') + '.md';
         const articleToLoad = articles.find(art => art.filename.toLowerCase() === filename.toLowerCase());
         if (articleToLoad) {
@@ -150,20 +117,59 @@ function handleInitialLoad() {
     }
 }
 
-// Події
+async function loadArticlesData() {
+    try {
+        const response = await fetch('articles.json');
+        if (!response.ok) {
+            throw new Error('Помилка завантаження файлу articles.json');
+        }
+        
+        articles = await response.json();
+        
+        articles.sort((a, b) => parseDate(b.date) - parseDate(a.date));
+        
+        createTagsFilter();
+        createArticlesList();
+        handleInitialLoad();
+        
+    } catch (error) {
+        console.error("Не вдалося завантажити дані статей:", error);
+        articlesList.innerHTML = '<p class="error">Помилка завантаження даних. Спробуйте пізніше.</p>';
+    }
+}
+
 backButton.addEventListener('click', e => {
     e.preventDefault();
     showMainPage();
 });
 searchInput.addEventListener('input', createArticlesList);
 
-window.addEventListener('popstate', () => {
-    handleInitialLoad();
+articlesList.addEventListener('click', e => {
+    const clickedLink = e.target.closest('#articles-list a');
+    if (clickedLink) {
+        e.preventDefault();
+        showArticlePage(clickedLink.dataset.file);
+    }
 });
 
-// Запуск
+tagsContainer.addEventListener('click', e => {
+    const clickedButton = e.target.closest('.tag-button');
+    
+    if (clickedButton && clickedButton !== currentActiveTagButton) {
+        if (currentActiveTagButton) {
+            currentActiveTagButton.classList.remove('active');
+        }
+        
+        activeTag = clickedButton.dataset.tag || null;
+        clickedButton.classList.add('active');
+        currentActiveTagButton = clickedButton;
+        
+        createArticlesList();
+    }
+});
+
+window.addEventListener('popstate', handleInitialLoad);
+
 document.addEventListener('DOMContentLoaded', () => {
-    createTagsFilter();
-    createArticlesList();
-    handleInitialLoad(); // Викликаємо одразу для обробки хешу
+    loadArticlesData();
 });

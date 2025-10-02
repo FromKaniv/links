@@ -14,7 +14,7 @@
     --input-bg-color: #ffffff;
     --input-border-color: #cbd5e0;
     --input-focus-color: #4c51bf;
-    --search-icon-color-light: #000000; /* Чорна іконка для світлої теми */
+    --search-icon-color-light: #000000;
 }
 
 /* Dark theme variables */
@@ -34,7 +34,7 @@
         --input-bg-color: #2d3748;
         --input-border-color: #4a5568;
         --input-focus-color: #6366f1;
-        --search-icon-color-dark: #ffffff; /* Біла іконка для темної теми */
+        --search-icon-color-dark: #ffffff;
     }
 }
 
@@ -52,7 +52,6 @@ header {
     display: none;
 }
 
-/* Додані стилі для верхньої навігаційної панелі */
 .top-nav {
     display: flex;
     justify-content: space-between;
@@ -74,7 +73,7 @@ header {
     width: 36px;
     height: 36px;
     margin-right: 4px;
-    border-radius: 12px; /* Зменшене заокруглення */
+    border-radius: 12px;
     object-fit: cover;
 }
 
@@ -118,7 +117,6 @@ hr {
     border-top: 1px solid var(--hr-color);
 }
 
-/* Нові стилі для керування видимістю */
 .content-view {
     display: none;
     background-color: var(--card-bg-color);
@@ -146,7 +144,6 @@ hr {
     color: var(--text-color);
 }
 
-/* Стилі для поля пошуку */
 #search-container {
 margin-bottom: 20px;
 }
@@ -157,7 +154,7 @@ margin-bottom: 20px;
 
 #search-input {
 width: 100%;
-padding: 12px 16px 12px 40px; /* Додано відступ для іконки */
+padding: 12px 16px 12px 40px;
 font-family: 'Inter', sans-serif;
 font-size: 16px;
 border: 1px solid var(--input-border-color);
@@ -177,7 +174,6 @@ outline: none;
 border-color: var(--input-focus-color);
 }
 
-/* Стилі для іконки */
 .search-icon-wrapper::before {
     content: '';
     position: absolute;
@@ -190,17 +186,16 @@ border-color: var(--input-focus-color);
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    filter: invert(0); /* За замовчуванням іконка чорна */
+    filter: invert(0);
     transition: filter 0.3s ease;
 }
 
 @media (prefers-color-scheme: dark) {
     .search-icon-wrapper::before {
-        filter: invert(1); /* Для темної теми інвертуємо, щоб іконка стала білою */
+        filter: invert(1);
     }
 }
 
-/* Стилі для контейнера тегів */
 #tags-container {
 display: flex;
 flex-wrap: wrap;
@@ -317,8 +312,10 @@ nav#articles-list li a:hover {
     border-radius: 16px;
 }
 
-img {
+img, video {
     max-width: 100%;
+    max-height: 75vh;
+    object-fit: contain;
     height: auto;
     display: block;
     margin: 20px 0;
