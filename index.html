@@ -1,326 +1,40 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Тарас Лаврентьєв — соцмережі</title>
-    <link rel="icon" href="/favicon_light.svg" type="image/svg+xml">
-    <link rel="icon" href="/favicon_dark.svg" type="image/svg+xml" media="(prefers-color-scheme: dark)">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-    
-    <style>
-        :root {
-            /* Light theme variables */
-            --bg-color: #f5f7fa;
-            --card-bg-color: #ffffff;
-            --text-color: #1a202c;
-            --text-light-color: #2a3549;
-            --link-hover-bg: #f2f4f7;
-            --link-border: #cbd5e0;
-        }
-
-        /* Dark theme variables */
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --bg-color: #1a202c;
-                --card-bg-color: #2d3748;
-                --text-color: #e2e8f0;
-                --text-light-color: #a0aec0;
-                --link-hover-bg: #333f54;
-                --link-border: #4a5568;
-            }
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-color);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-            color: var(--text-color);
-            line-height: 1.5;
-            transition: background-color 0.3s ease;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 500px;
-            text-align: center;
-        }
-
-        .profile-section {
-            padding: 30px;
-            background-color: var(--card-bg-color);
-            border-radius: 16px;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            border: 1px solid var(--link-border);
-            margin-bottom: 20px;
-            transition: background-color 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .profile-picture {
-            width: 100px;
-            height: 100px;
-            border-radius: 25%;
-            object-fit: cover;
-            border: 1px solid var(--link-border);
-            margin-bottom: 15px;
-            transition: border-color 0.3s ease;
-        }
-
-        h1 {
-            font-size: 28px;
-            font-weight: 600;
-            margin: 0;
-            text-align: center;
-        }
-        
-        h2 {
-            color: var(--text-light-color);
-            font-size: 16px;
-            font-weight: 400;
-            margin: 10px 0 0 0;
-            transition: color 0.3s ease;
-            text-align: center;
-        }
-        
-        h3 {
-            color: var(--text-color);
-            font-size: 14px;
-            font-weight: 200;
-            margin: 0;
-            transition: color 0.3s ease;
-            text-align: center;
-        }
-
-        .links-container {
-            display: grid;
-            gap: 15px;
-        }
-
-        .link-button {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 18px;
-            background-color: var(--card-bg-color);
-            border: 1px solid var(--link-border);
-            border-radius: 12px;
-            text-decoration: none;
-            color: var(--text-color);
-            font-size: 16px;
-            font-weight: 600;
-            transition: all 0.1s ease-in-out;
-            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-        }
-
-        .link-button:hover {
-            background-color: var(--link-hover-bg);
-        }
-
-        .icon {
-            margin-right: 12px;
-            width: 22px;
-            height: 22px;
-            filter: var(--icon-filter, none);
-        }
-
-        /* Dark theme icon filter */
-        @media (prefers-color-scheme: dark) {
-            .icon {
-                filter: invert(100%) brightness(120%) saturate(150%);
-            }
-        }
-
-        .footer {
-            margin-top: 20px;
-            font-size: 14px;
-            color: #718096;
-            transition: color 0.3s ease;
-        }
-
-        /* Адаптивні стилі для менших екранів */
-        @media (max-width: 600px) {
-            body {
-                padding: 10px;
-            }
-            .profile-section {
-                padding: 20px;
-            }
-            .profile-picture {
-                width: 80px;
-                height: 80px;
-            }
-            h1 {
-                font-size: 24px;
-            }
-            .link-button {
-                padding: 16px;
-            }
-            .icon {
-                width: 20px;
-                height: 20px;
-            }
-        }
-
-        /* СТИЛІ ДЛЯ ДРУКУ */
-        @media print {
-            body {
-                background-color: #ffffff !important;
-                color: #000000 !important;
-                min-height: auto;
-                padding: 0;
-            }
-
-            .container {
-                max-width: none;
-                text-align: left;
-                padding: 20px;
-            }
-            
-            .profile-section {
-                padding: 0;
-                margin-bottom: 20px;
-                background: none;
-                box-shadow: none;
-                text-align: left;
-                display: flex; /* Робимо гнучким контейнером */
-                align-items: center; /* Вирівнюємо елементи по центру */
-                gap: 20px; /* Відступ між елементами */
-                border: none;
-            }
-            
-            .profile-picture {
-                display: block; /* Зображення буде відображатися */
-                width: 80px;
-                height: 80px;
-                border: 1px solid #ddd;
-                border-radius: 50%; /* Робимо круглим */
-                flex-shrink: 0; /* Запобігаємо стисканню */
-            }
-            
-            .profile-info {
-                display: block;
-            }
-
-            h1 {
-                font-size: 24px;
-                font-weight: 600;
-                color: #000000 !important;
-                margin: 0;
-                text-align: left;
-            }
-            
-            h2 {
-                font-size: 16px;
-                font-weight: 400;
-                color: #000000 !important;
-                margin-top: 5px;
-                text-align: left;
-            }
-            
-            h3 {
-                font-size: 12px;
-                font-weight: 200;
-                color: #000000 !important;
-                margin-top: 0;
-                text-align: left;
-            }
-
-            .footer {
-                display: none;
-            }
-
-            .links-container {
-                display: block;
-                gap: 0;
-                margin-top: 20px;
-            }
-
-            .link-button {
-                display: block;
-                padding: 0;
-                background-color: transparent !important;
-                border: none !important;
-                box-shadow: none;
-                color: #0000ff !important;
-                font-size: 18px;
-                font-weight: 400;
-                margin-bottom: 5px;
-                text-align: left;
-                text-decoration: underline;
-            }
-            
-            .link-button .icon {
-                display: none;
-            }
-
-            .link-button::after {
-                content: " (" attr(href) ") ";
-                font-size: 14px;
-                color: #555555;
-                text-decoration: none;
-            }
-        }
-    </style>
+    <title>Перенаправлення</title>
+    <meta http-equiv="refresh" content="0; url=https://fromkaniv.codeberg.page">
 </head>
+<style>
+body {
+    background-color: #1a202c;
+    color: #1a202c;
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 20px 0;
+}
+
+a {
+    color: #1a202c;
+    text-decoration: underline;
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #1a202c;
+        color: #e2e8f0;
+    }
+    a {
+        color: #e2e8f0;
+        text-decoration: underline;
+    }
+}
+</style>
 <body>
-
-    <div class="container">
-        <div class="profile-section">
-            <img class="profile-picture" src="avatar.png" alt="Фото профілю">
-            <div>
-                <h1>Тарас Лаврентьєв</h1>
-                <h3>@FromKaniv</h3>
-                <h2>Бандурист із Канева</h2>
-            </div>
-        </div>
-        
-        <div class="links-container">
-            <a href="/blog" class="link-button">
-                <img src="icons/blog.svg" alt="Блоґ" class="icon">
-                Блоґ
-            </a>
-            <a href="https://www.youtube.com/@fromkaniv" class="link-button" target="_blank">
-                <img src="icons/youtube.svg" alt="YouTube" class="icon">
-                YouTube
-            </a>
-            <a href="https://www.instagram.com/fromkaniv" class="link-button" target="_blank">
-                <img src="icons/instagram.svg" alt="Instagram" class="icon">
-                Instagram
-            </a>
-            <a href="https://www.tiktok.com/@fromkaniv" class="link-button" target="_blank">
-                <img src="icons/tiktok.svg" alt="TikTok" class="icon">
-                TikTok
-            </a>
-            <a href="https://www.threads.com/@fromkaniv" class="link-button" target="_blank">
-                <img src="icons/threads.svg" alt="Threads" class="icon">
-                Threads
-            </a>
-            <a href="https://www.facebook.com/fromkaniv" class="link-button" target="_blank">
-                <img src="icons/facebook.svg" alt="Facebook" class="icon">
-                Facebook
-            </a>
-            <a href="https://x.com/fromkaniv" class="link-button" target="_blank">
-                <img src="icons/x.svg" alt="Twitter" class="icon">
-                Twitter
-            </a>
-            <a href="https://github.com/fromkaniv" class="link-button" target="_blank">
-                <img src="icons/github.svg" alt="GitHub" class="icon">
-                GitHub
-            </a>
-        </div>
-
-        <p class="footer">
-            Слава Україні! 💛💙<br>
-            Піктограма «Блоґ» від HugeIcons
-        </p>
-    </div>
-
+    <p><strong>Перенаправлення.</strong> Якщо вас не було автоматично перенаправлено, <a href="https://fromkaniv.codeberg.page">натисніть тут</a>.</p>
 </body>
 </html>
